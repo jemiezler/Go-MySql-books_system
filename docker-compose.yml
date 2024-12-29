@@ -1,0 +1,26 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Root password for MySQL
+      MYSQL_DATABASE: books_system_db         # Default database
+      MYSQL_USER: user           # Optional: Additional user
+      MYSQL_PASSWORD: password       # Password for the additional user
+    ports:
+      - "3306:3306"                      # Expose MySQL on localhost:3306
+    volumes:
+      - ./data:/var/lib/mysql       # Persist MySQL data in your project folder
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: user
+      PMA_PASSWORD: password
+    ports:
+      - "8888:80"
